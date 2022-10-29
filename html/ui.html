@@ -1,0 +1,46 @@
+<head>
+    <meta charset="UTF-8">
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <script src="./js/script.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js" type="text/javascript"></script>
+    <script src="https://kit.fontawesome.com/83fa8d2e4a.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="all" href="./css/style.css">
+</head>
+<html>
+    <body>
+        <div id="hud"><i class="fa-solid fa-earth-americas"></i> - <span id="current_id"></span></div>
+        <div id="panel">
+            <div class="title">
+                <span><i class="fa-solid fa-earth-americas">&nbsp;</i> Dimension Menu </span><span id="page-title"></span>
+                <div id="close"><i class="fa-solid fa-circle-xmark"></i></div>
+            </div>
+            <div id="menu">
+                <li id="my"><i class="fa-solid fa-user"></i> &nbsp;Vytvořit vlastní</li>
+                <li id="connect"><i class="fa-solid fa-link"></i> &nbsp;Připojit se</li>
+                <li id="leave"><i class="fa-solid fa-right-from-bracket" style="font-size: 1vw; color:#b63f2abd"></i> &nbsp;Odpojit se</li>
+            </div>
+            <div id="content">
+                <div id="content-my" style="display:none;">
+                    ID Dimenze<span style="color:red">*</span><br>
+                        <input type="text" id="id" onkeypress="return /[0-9]/i.test(event.key)" placeholder="1 - 1000"><br><br>
+                    Název <span style="color:red">*</span><br>
+                        <input type="text" id="name" onkeypress="return /[a-zA-Z0-9]/i.test(event.key)" placeholder="Moje Dimenze" required><br><br>
+                    Heslo<br>
+                        <input type="text" id="password" onkeypress="return /[a-zA-Z0-9]/i.test(event.key)" placeholder="********" required><br><br>
+                        <center><div id="create" class="success-btn">Vytvořit - <span id="price"></span>$</div></center>
+                </div>
+
+                <div id="content-connect" style="display:none">
+                    ID Dimenze<span style="color:red">*</span><br>
+                        <input type="text" id="id_connect" onkeypress="return /[0-9]/i.test(event.key)" placeholder="1 - 1000"><br><br>
+                    Heslo<br>
+                        <input type="text" id="passwd_connect" onkeypress="return /[a-zA-Z0-9]/i.test(event.key)" placeholder="********"><br><br>   
+                        <center><div id="connect_to_id" class="success-btn">Připojit</div></center>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
