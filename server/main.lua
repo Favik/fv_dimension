@@ -27,17 +27,6 @@ RegisterCommand(Config.CommandCheck, function(source, args, rawCommand)
     end
 end, false)
 
--- ESX.RegisterCommand('dset', {"mod", "admin"}, function(xPlayer, args, showError)
---     local targetID = args.playerId
---     local dimensionID = args.dimensionID
---     local xTarget = ESX.GetPlayerFromId(targetID)
---     print(#targetID, dimensionID)
-
--- end, true, {help = 'Set dimension to player.', validate = true, arguments = {
--- 	{name = 'playerId', help = 'Player ID', type = 'player'},
---     {name = 'dimensionID', help = 'Dimension ID', type = 'number'}
--- }})
-
 AddEventHandler("playerDropped", function()
     local _source = source 
     local leaveID = GetPlayerRoutingBucket(_source)
