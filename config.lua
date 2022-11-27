@@ -1,4 +1,5 @@
 Config = {}
+Config.Debug = true                      -- Console Log
 
 Config.ESXnotify = true                  -- If set to false mythic_notify is used for notifications and if set to true ESX notifications are used.
 

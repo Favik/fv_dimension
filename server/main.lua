@@ -31,7 +31,7 @@ AddEventHandler("playerDropped", function()
     local _source = source 
     local leaveID = GetPlayerRoutingBucket(_source)
     if leaveID > 0 then
-        print('^3['..GetCurrentResourceName()..'] - Player ID '.. source..' disconnected from dimension ID '..leaveID..'^0')
+        debug('^3['..GetCurrentResourceName()..'] - Player ID '.. source..' disconnected from dimension ID '..leaveID..'^0')
         MySQL.query('SELECT * FROM fv_dimension WHERE dimension_id = @id ', {
             ['@id'] = leaveID,
         }, function(result)   
@@ -75,7 +75,7 @@ AddEventHandler("fv_dimension:create-dimension", function(data)
                             ['@owner'] = playername,
                             ['@identifier'] = xPlayer.identifier,
                         })
-                        print('^5['..GetCurrentResourceName()..'] - Player ID '.._source..' create dimension ID '..dataID..'^0')
+                        debug('^5['..GetCurrentResourceName()..'] - Player ID '.._source..' create dimension ID '..dataID..'^0')
                         SetPlayerRoutingBucket(_source, dataID)
                         TriggerClientEvent('fv_dimension:showhud', _source, dataID)
                         if Config.ESXnotify then
@@ -124,7 +124,7 @@ AddEventHandler("fv_dimension:remove-dimension", function(remove_id)
             MySQL.Async.execute('DELETE FROM fv_dimension WHERE dimension_id = @id', {
                 ['@id'] = remove_id
             })
-            print('^2['..GetCurrentResourceName()..'] - Delete dimension ID '..remove_id..'^0')
+            debug('^2['..GetCurrentResourceName()..'] - Delete dimension ID '..remove_id..'^0')
         end      
 	end)
 end)
@@ -154,7 +154,7 @@ AddEventHandler("fv_dimension:connect-dimension", function(data)
                     else
                         TriggerClientEvent('mythic_notify:client:SendAlert', _source, { type = 'success', text = _U('dim_connect')})
                     end
-                    print('^2['..GetCurrentResourceName()..'] - Player ID '.._source..' connected in the dimension ID '..connectID..'.^0')
+                    debug('^2['..GetCurrentResourceName()..'] - Player ID '.._source..' connected in the dimension ID '..connectID..'.^0')
                     SetPlayerRoutingBucket(_source, connectID)
                     TriggerClientEvent('fv_dimension:showhud', _source, connectID)
                 else
@@ -196,7 +196,7 @@ AddEventHandler("fv_dimension:leave-dimension", function()
                 MySQL.Async.transaction({'UPDATE fv_dimension SET players = @players - 1 WHERE dimension_id = @connectId'},
                     {['@connectId'] = leaveID, ['@players'] = players},
                 function() end)
-                print('^3['..GetCurrentResourceName()..'] - Player ID '.._source..' disconnected from dimension ID '..leaveID..'.^0')
+                debug('^3['..GetCurrentResourceName()..'] - Player ID '.._source..' disconnected from dimension ID '..leaveID..'.^0')
                 SetPlayerRoutingBucket(_source, 0)
                 TriggerClientEvent('fv_dimension:showhud', _source, 0)
                 if Config.ESXnotify then
@@ -230,11 +230,11 @@ AddEventHandler('onResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return
     end
-        print('\n-------------------------------------------------\n^5['..GetCurrentResourceName()..'] - 🚀 Starting resource... \n^3['..GetCurrentResourceName()..'] - 💾 Resetting MySQL data.^0\n-------------------------------------------------')
+        debug('\n-------------------------------------------------\n^5['..GetCurrentResourceName()..'] - 🚀 Starting resource... \n^3['..GetCurrentResourceName()..'] - 💾 Resetting MySQL data.^0\n-------------------------------------------------')
         Wait(1000)
         MySQL.Async.execute('DELETE FROM fv_dimension')
         TriggerClientEvent('fv_dimension:resetDataCL', -1)
-        print('^2['..GetCurrentResourceName()..'] - ✅ Resource ready.^0\n-------------------------------------------------\n')
+        debug('^2['..GetCurrentResourceName()..'] - ✅ Resource ready.^0\n-------------------------------------------------\n')
   end)
 
 RegisterServerEvent("fv_dimension:resetDataSV")
@@ -250,3 +250,9 @@ AddEventHandler("fv_dimension:resetDataSV", function()
         end
     end
 end)
+
+function debug(data)
+    if Config.Debug then
+        print(data)
+    end
+end
